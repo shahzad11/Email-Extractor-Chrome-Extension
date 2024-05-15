@@ -10,10 +10,11 @@ document.getElementById('scrapeButton').addEventListener('click', () => {
         const uniqueEmails = removeDuplicates(emails);
         localStorage.setItem('scrapedEmails', JSON.stringify(uniqueEmails));
         document.getElementById('exportButton').style.display = 'block';
-        // Format and display the email addresses in a table
-          const emailTable = generateEmailTable(uniqueEmails);
-          document.getElementById('status').innerHTML = `Scraped ${uniqueEmails.length} unique contacts:<br>${emailTable}`;
-        }
+
+        // Format and display the email addresses
+        const emailTable = createEmailTable(uniqueEmails);
+        document.getElementById('status').innerHTML = `Scraped ${uniqueEmails.length} unique contacts:<br>${emailTable}`;
+      }
     });
   });
 });
@@ -22,6 +23,11 @@ document.getElementById('exportButton').addEventListener('click', () => {
   const emails = JSON.parse(localStorage.getItem('scrapedEmails'));
   if (emails && emails.length > 0) {
     exportToCSV(emails);
+
+    // Clear the local storage after exporting data
+    localStorage.removeItem('scrapedEmails');
+    document.getElementById('exportButton').style.display = 'none';
+    document.getElementById('status').innerHTML = 'Data exported successfully. Scrape again for fresh data.';
   }
 });
 
@@ -48,15 +54,6 @@ function removeDuplicates(emails) {
   });
 }
 
-function generateEmailTable(emails) {
-  let table = '<table><tr><th>Name</th><th>Email</th></tr>';
-  emails.forEach(email => {
-    table += `<tr><td>${email.name}</td><td>${email.email}</td></tr>`;
-  });
-  table += '</table>';
-  return table;
-}
-
 function exportToCSV(data) {
   const csvContent = "data:text/csv;charset=utf-8," + data.map(e => `${e.name},${e.email}`).join("\n");
   const encodedUri = encodeURI(csvContent);
@@ -66,4 +63,13 @@ function exportToCSV(data) {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+function createEmailTable(emails) {
+  let table = '<table><tr><th>Name</th><th>Email</th></tr>';
+  emails.forEach(email => {
+    table += `<tr><td>${email.name}</td><td>${email.email}</td></tr>`;
+  });
+  table += '</table>';
+  return table;
 }

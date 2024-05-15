@@ -1,15 +1,15 @@
 // Function to scrape emails and sender names
 function scrapeEmails() {
   let emails = [];
-  let emailElements = document.querySelectorAll('.zA'); // Select all email rows
+  let emailElements = document.querySelectorAll('tr.zA'); // Select all email rows
 
   emailElements.forEach(emailElement => {
-    let nameElement = emailElement.querySelector('.bA4 .bA4 span');
-    let emailElement = emailElement.querySelector('.bA4 .bA4 span[email]');
+    let senderElement = emailElement.querySelector('.yW span[email]');
+    let emailElement = senderElement ? senderElement.getAttribute('email') : null;
 
-    if (nameElement && emailElement) {
-      let name = nameElement.innerText;
-      let email = emailElement.getAttribute('email');
+    if (senderElement && emailElement) {
+      let name = senderElement.innerText;
+      let email = emailElement;
 
       // Only add unique contacts
       if (!emails.some(e => e.email === email)) {
