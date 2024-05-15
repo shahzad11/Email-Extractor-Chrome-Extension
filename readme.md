@@ -31,6 +31,7 @@ This Chrome extension scrapes email addresses and contact details (name and emai
 
 ### Folder Structure
 
+```
 email-scraper/
 ├── background.js
 ├── content.js
@@ -42,7 +43,7 @@ email-scraper/
 ├── popup.html
 ├── popup.css
 └── popup.js
-
+```
 
 ### Manifest File
 
