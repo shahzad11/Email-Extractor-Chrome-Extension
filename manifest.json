@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Email Scraper",
+  "name": "Email Extractor Chrome Extension",
   "version": "1.0",
-  "description": "Scrapes email addresses from your inbox.",
+  "description": "The Gmail Email Scraper Extension allows you to scrape email addresses from your Gmail inbox. It retrieves the sender's name and email address from all the emails listed in your inbox, both read and unread, and enables you to export the scraped data to a CSV file. This extension helps you efficiently gather contact information for further use.
+",
   "permissions": ["scripting", "activeTab", "downloads"],
   "background": {
     "service_worker": "background.js"
